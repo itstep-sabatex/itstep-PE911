@@ -1,4 +1,5 @@
 ﻿using Cafe.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,13 @@ namespace Cafe
                 //badWaiter.Name = "Semen Semenov";
                 //dbContext.SaveChanges();
 
-                //var waiters = dbContext.Waiter.ToArray();
-                //dg.ItemsSource = waiters;
+                var waiters = dbContext.UserAccesLevels
+                    .Where(w => w.AccessLevel == Models.AccessLevel.Waiter)
+                    .Include(i=>i.User)
+                    .Select(w => new {Id=w.Id,Name=w.User.Name })
+                    .ToArray();
+
+                dg.ItemsSource = waiters;
 
             }
 

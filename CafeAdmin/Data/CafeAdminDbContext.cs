@@ -14,8 +14,8 @@ namespace CafeAdmin.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;DataBase=C:\DataBases\cafe.mdf");
-            //optionsBuilder.UseSqlite(@"FileName=c:\DataBases\cafe.db");
+            //optionsBuilder.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;DataBase=C:\DataBases\cafe.mdf");
+            optionsBuilder.UseSqlite(@"FileName=c:\DataBases\cafe.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

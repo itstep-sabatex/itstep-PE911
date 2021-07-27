@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cafe.Models;
+using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 namespace Cafe.Data
 {
@@ -15,6 +17,7 @@ namespace Cafe.Data
             base.OnConfiguring(optionsBuilder);
             //optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\DataBases\restoran.mdf;Integrated Security=True;Connect Timeout=30");
             optionsBuilder.UseSqlite(@"FileName=c:\DataBases\cafe.db");
+            optionsBuilder.LogTo(message => Debug.WriteLine(message), LogLevel.Information);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
