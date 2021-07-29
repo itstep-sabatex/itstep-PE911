@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Cafe.Models
 {
-    public class User
+    public class User:IUser
     {
         public int Id { get; set; }
         public string Name { get; set; }

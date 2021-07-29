@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cafe.Data\Cafe.Data.csproj" />
     <ProjectReference Include="..\Cafe.Models\Cafe.Models.csproj" />
+    <ProjectReference Include="..\Cafe.WPF.UserControls\Cafe.WPF.UserControls.csproj" />
   </ItemGroup>
 
 </Project>
