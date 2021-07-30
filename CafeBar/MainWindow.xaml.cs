@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cafe.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace CafeBar
         public MainWindow()
         {
             InitializeComponent();
+            login.LogginController = new LoginController<CafeBarDbContext>(Cafe.Models.AccessLevel.Barmen);
+
+        }
+        private void login_LoginResult(bool arg1, int arg2)
+        {
+            if (!arg1) Close();
+            login.Visibility = Visibility.Collapsed;
+            //_currentUserId = arg2;
+            //SetActiveFrame(CafeFrame.Main);
         }
     }
 }

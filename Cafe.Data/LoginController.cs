@@ -12,7 +12,8 @@ namespace Cafe.Data
                     where Context : BaseDbContext ,new() 
     {
         AccessLevel _userAccesLevel;
-        int _loginCounter = 4;
+        const int MaxLoginCounted = 4; 
+        int _loginCounter = MaxLoginCounted;
         public LoginController(AccessLevel userAccesLevel)
         {
             _userAccesLevel = userAccesLevel;
@@ -24,10 +25,11 @@ namespace Cafe.Data
             {
                 using (var context = new Context())
                 {
-                    return context.UserAccesLevels.Where(s=>s.AccessLevel == _userAccesLevel)
-                                                  .Include(i=>i.User)
-                                                  .Select(sel=>sel.User)
+                    var result = context.UserAccesLevels.Where(s => s.AccessLevel == _userAccesLevel)
+                                                  .Include(i => i.User)
+                                                  .Select(sel => sel.User)
                                                   .ToArray();
+                    return result;
                 }
 
             } 
@@ -40,13 +42,16 @@ namespace Cafe.Data
             if (_loginCounter <=0) return false;
             using (var context = new Context())
             {
-                if (context.Users.SingleOrDefault(s=>s.Id == userId && s.Password == password) == null)
+                if (context.Users.SingleOrDefault(s => s.Id == userId && s.Password == password) == null)
                 {
                     _loginCounter--;
                     return false;
                 }
                 else
+                {
+                    _loginCounter = MaxLoginCounted;
                     return true;
+                }
 
             }
         }
