@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cafe.Models
 {
@@ -8,6 +10,12 @@ namespace Cafe.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
+        [Timestamp]
+        public byte[] Timestamp { get; set; }
+
+        [ConcurrencyCheck]
+        public string GuidToken { get; set; }
+        public List<UserAccesLevel> UserAccesLevels { get; set; }
         public static User DefaultAdmin = new User 
         {
             Id = 1,

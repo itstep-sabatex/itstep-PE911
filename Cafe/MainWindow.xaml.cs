@@ -1,4 +1,5 @@
 ﻿using Cafe.Data;
+using Cafe.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,14 +46,41 @@ namespace Cafe
                         //var badWaiter = dbContext.Waiter.Single(s => s.Id == 1);
                         //badWaiter.Name = "Semen Semenov";
                         //dbContext.SaveChanges();
+                        //CREATE FUNCTION GetMyProc(@id int)
+                        //RETURN TABLE
+                        //AS
+                        //RETURN
+                        //(
+                        //     SELECT * FROM UserAccessLevels
+                        //     WHERE [Id] = @id
+                        //)
+                        //var waiters = dbContext.UserAccesLevels.FromSqlRaw("EXECUTE GetMyProc {0}",10) 
+                        //      .Where(w => w.AccessLevel == Models.AccessLevel.Waiter)
+                        //      .Include(i => i.User)
+                        //      .Select(w => new { Id = w.Id, Name = w.User.Name })
+                        //      .ToArray();
+                        var users = dbContext.Users.Include(i=>i.UserAccesLevels).ToArray();
 
-                        var waiters = dbContext.UserAccesLevels
-                            .Where(w => w.AccessLevel == Models.AccessLevel.Waiter)
-                            .Include(i => i.User)
-                            .Select(w => new { Id = w.Id, Name = w.User.Name })
-                            .ToArray();
+                        //var su = System.Text.Json.JsonSerializer.Serialize(users);
 
-                        dg.ItemsSource = waiters;
+
+                        dg.ItemsSource = users;
+
+
+                        var nu = new User
+                        {
+                            Name = "Zuzana Chaputova",
+                            Password = "12345",
+                            UserAccesLevels = new List<UserAccesLevel>
+                            {
+                                new UserAccesLevel{AccessLevel = AccessLevel.Barmen},
+                                new UserAccesLevel{AccessLevel = AccessLevel.Waiter},
+                                new UserAccesLevel{ AccessLevel = AccessLevel.Admin}
+                            }
+                        };
+                        //dbContext.Users.Add(nu);
+                        //dbContext.SaveChanges();
+
 
                     }
                     break;

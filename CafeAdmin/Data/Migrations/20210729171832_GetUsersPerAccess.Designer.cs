@@ -2,14 +2,16 @@
 using CafeAdmin.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CafeAdmin.Data.Migrations
 {
     [DbContext(typeof(CafeAdminDbContext))]
-    partial class CafeAdminDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210729171832_GetUsersPerAccess")]
+    partial class GetUsersPerAccess
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,17 +168,12 @@ namespace CafeAdmin.Data.Migrations
             modelBuilder.Entity("Cafe.Models.UserAccesLevel", b =>
                 {
                     b.HasOne("Cafe.Models.User", "User")
-                        .WithMany("UserAccesLevels")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Cafe.Models.User", b =>
-                {
-                    b.Navigation("UserAccesLevels");
                 });
 #pragma warning restore 612, 618
         }
