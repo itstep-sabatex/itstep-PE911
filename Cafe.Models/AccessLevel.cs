@@ -11,7 +11,8 @@ namespace Cafe.Models
         None = 0,
         Admin = 1,
         Waiter = 2,
-        Barmen =3
+        Barmen =3,
+        Cook =4
 
     }
 }
